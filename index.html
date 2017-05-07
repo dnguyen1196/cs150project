@@ -1,1 +1,47 @@
-My Page
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Network interdiction</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+<body>
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<h1 id="prj_title">Application of linear programming in the network interdiction problem</h1>
+
+			<h2>1. What is the network interdiction problem?</h2>
+			<p>The network interdiction problem builds on the concept of maximum flow with a little twist. Imagine two opponents on a network <b>G(V,E)</b>. An entity tries to maximize the flow of a commodity from a source <b>s</b> to target <b>t</b>. The other entity, the interdictor, tries to minimize this optimal flow. The interdictor can decrease the capacities of various edges in the graph, but at some linear cost specific to each edge. </p>
+
+			<p>The network interdiction problem therefore asks how decrease the edges' capacity subjected to a fixed budget so that the new maximum flow is minimized. The network interdiction problem has an important application in defense and security and is used to assess the robustness of network designs.</p>
+
+			<h2>2. Linear programming</h2>
+			<p>Linear programming is a class of optimization algorithms that (in standard form) seeks to minimize a linear function subjected to linear constraints. All linear programming problems could be casted in the following formulation.</p>
+			<img src="LP.svg">
+			<p>Where G and A are matrices, c, x, h and b are vectors and d is a scalar. This might seem a bit too abstract and mathy but the following example would clear things up.</p>
+			<p>The diet problem</p>
+			<p>Suppose you want to have a healthy diet, then you need to meet the requirements of various nutrients including vitamins, fibers, proteins etc, each at some different quantities. Instead of naming them as is, denote these various nutrients' requirements as <b>b1, b2, ... ,bm</b> (suppose there are m really essential nutrients that you must get) </p>
+			<p>To meet these requirements, you have to get food. Suppose the local super markets only have some limited choice of food, say bananas, chicken breasts, and a few others. Each of them alone is not enough to supply all the nutritional requirements. However, their combination is. Each 'quantity' of these food supplies some amount of each of the m nutrients above. For example, banana supplies a1 of nutrient 1, a2 of nutrient 2 and so on. </p>
+			<p>So you want to buy a combination of x1 'quantities' of banana, x2 'quantities' of chicken and so on. And remember that you must meet the nutritional requirements. The math behind this could be worked out nicely. If you concatenate a1, a2, ..., am associated with a food as as a row and for n food, construct a matrix A of size n x m. The matrix product of this matrix A with the x vector (how much you buy for each food) is element wise greater than the b vector (all the nutrient requirements). And this gives us the above equation!</p>
+
+			<h2>3. Duality</h2>
+			<p>Duality is an important concept in optimization. Every optimization problem has a dual, which is also an optimization problem. It's like looking at the optimization problem from a different angle. While the original optimization problem might not be 'efficiently' solved, the dual often is. However, the catch is, the dual is not always useful: solving the dual does not always guarantee solving the original problem (called the primal). Lucky for us, it is in this case.</p>
+
+
+			<h2>4. Formulation</h2>
+
+
+			<h2>5. Results</h2>
+
+
+			<h2>6. References</h2>
+
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+
+</body>
+</html>
