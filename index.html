@@ -30,14 +30,30 @@
 			<h2>3. Duality</h2>
 			<p>Duality is an important concept in optimization. Every optimization problem has a dual, which is also an optimization problem. It's like looking at the optimization problem from a different angle. While the original optimization problem might not be 'efficiently' solved, the dual often is. However, the catch is, the dual is not always useful: solving the dual does not always guarantee solving the original problem (called the primal). Lucky for us, it is in this case.</p>
 
+			<p>The formulation of the dual problem deserves a completely separate topic that requires a lot of mathematical analysis that are tangent to what we need right now. And each class of optimization algorithm will have a different looking dual problem. An important take away is <b> the dual problem of a minimization problem is a maximization problem and vice versa.</b></p>
+
+			<p>The dual is helpful because solving the dual problem gives a lower bound to the optimal primal solution. This relationship could be visualized with the diagram below. Note that the red line is the graph of the primal function and the blue line traces the dual function. Note that the dual function always lies below the primal function. </p>
+			<img src="duality.svg">
+			<p>The concept of strong vs weak duality is the answer to the question "is the dual problem useful?". In case of strong duality, the dual problem is useful because the optimal value of the dual function is the optimal value of the primal problem itself. And this applies to our case. Solving our dual LP could give back the primal LP solution.</p>
+
+			<p><b>Some foreword:</b> you might notice that in my project description there is a lot of mathematical analysis. This is something that perhaps holds true for this class of algorithms and scientific computing in general. Most of the work is done in formulation. To represent a problem in some standard form where we know could be solved 'efficiently'. And that is the purpose of my project, to formulate the network interdiction problem in a standard form that could be solved 'efficiently'.
+			</p>
 
 			<h2>4. Formulation</h2>
+			<p>Below is the formulation of the follower's problem. </p>
+			<img src="follower.png" id="follower_problem">
+			<ul>
+				<li>X(i,j) is the flow of the commodity through edge i-j. Here, we want to maximize the outflow from the <b>source</b></li>
+				<li>The first constraint simply means total flow into a node i must equal total outflow from the same node for every node (except for the source and target of course)</li>
+				<li>C is the matrix that denotes the capacity of the edges in the graph. The inequality symbol here means element wise inequality.</li>
+			</ul>
+			<p>I hope you're not alarmed by the abundance of mathematical symbols and mumbo jumbos. In the end, the matrices/vectors are just there to represent the data, the constraints, the variables in a more compact form. For example, the last inequality can be 'translated' into plain computer-science explanation as for each edge (i,j) in the graph, the flow is upperbounded by some capacity C(i,j).</p>
 
+		 	<p>However, notice that the objective function is basically a sum (some scalar). Hence, we could effectively denote the sum as some variable to make the problem look neater. In particular,</p>
+			<img src="modified_follower.png" id="modified_follower">
 
-			<h2>5. Results</h2>
-
-
-			<h2>6. References</h2>
+<!-- 			<h2>5. Results</h2>
+			<h2>6. References</h2> -->
 
 		</div>
 		<div class="col-md-2"></div>

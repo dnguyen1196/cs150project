@@ -1,3 +1,11 @@
 body{
 	font-family:"Lucida Console";
 }
+
+#follower_problem{
+	width: 75%;
+}
+
+#modified_follower{
+	width: 65%;
+}
