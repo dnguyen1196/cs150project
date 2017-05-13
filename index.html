@@ -20,7 +20,7 @@
 
 			<h2>2. Linear programming</h2>
 			<p>Linear programming is a class of optimization algorithms that (in standard form) seeks to minimize a linear function subjected to linear constraints. All linear programming problems could be casted in the following formulation.</p>
-			<img src="LP.svg">
+			<img src="LP.svg" id="LP">
 			<p>Where G and A are matrices, c, x, h and b are vectors and d is a scalar. This might seem a bit too abstract and mathy but the following example would clear things up.</p>
 			<p>The diet problem</p>
 			<p>Suppose you want to have a healthy diet, then you need to meet the requirements of various nutrients including vitamins, fibers, proteins etc, each at some different quantities. Instead of naming them as is, denote these various nutrients' requirements as <b>b1, b2, ... ,bm</b> (suppose there are m really essential nutrients that you must get) </p>
@@ -28,32 +28,58 @@
 			<p>So you want to buy a combination of x1 'quantities' of banana, x2 'quantities' of chicken and so on. And remember that you must meet the nutritional requirements. The math behind this could be worked out nicely. If you concatenate a1, a2, ..., am associated with a food as as a row and for n food, construct a matrix A of size n x m. The matrix product of this matrix A with the x vector (how much you buy for each food) is element wise greater than the b vector (all the nutrient requirements). And this gives us the above equation!</p>
 
 			<h2>3. Duality</h2>
-			<p>Duality is an important concept in optimization. Every optimization problem has a dual, which is also an optimization problem. It's like looking at the optimization problem from a different angle. While the original optimization problem might not be 'efficiently' solved, the dual often is. However, the catch is, the dual is not always useful: solving the dual does not always guarantee solving the original problem (called the primal). Lucky for us, it is in this case.</p>
+			<p>Duality is an important concept in optimization. Every optimization problem has a dual, which is also an optimization problem. It's like looking at the optimization problem from a different angle. While the original optimization problem (called the primal to separate from the dual) might not be 'efficiently' solved, the dual often is. However, the catch is, the dual is not always useful: solving the dual does not always guarantee solving the original problem (called the primal). Lucky for us, the dual is all we need in solving the interdiction problem.</p>
 
-			<p>The formulation of the dual problem deserves a completely separate topic that requires a lot of mathematical analysis that are tangent to what we need right now. And each class of optimization algorithm will have a different looking dual problem. An important take away is <b> the dual problem of a minimization problem is a maximization problem and vice versa.</b></p>
+			<p>The formulation of the dual problem deserves a completely separate topic that requires a lot of mathematical analysis that are tangent to what we need right now. And each class of optimization algorithm will have a different looking dual problem. An important take away is <b> the dual problem of a minimization problem is a maximization problem and vice versa</b>. With that said, given any optimization problem of the form</p>
+			<img src="duality.png" id="duality">
 
-			<p>The dual is helpful because solving the dual problem gives a lower bound to the optimal primal solution. This relationship could be visualized with the diagram below. Note that the red line is the graph of the primal function and the blue line traces the dual function. Note that the dual function always lies below the primal function. </p>
+			<p>Note that the dual has a different set of parameters from the primal problem. This is because the dual 'incorporates' the constraints of the original problem to form a new objective function with new variables and then 'gets rid' of the variables of the primal problem. So it looks like we get a totally new objective function with new variables. We do, but it is still very much related to the primal problem.</p>
+			<p>The dual can be helpful because solving the dual problem <b>gives a lower bound</b> to the optimal primal solution. This relationship could be visualized with the diagram below. Note that the red line is the graph of the primal function and the blue line traces the dual function. Note that the dual function always lies below the primal function. </p>
 			<img src="duality.svg">
 			<p>The concept of strong vs weak duality is the answer to the question "is the dual problem useful?". In case of strong duality, the dual problem is useful because the optimal value of the dual function is the optimal value of the primal problem itself. And this applies to our case. Solving our dual LP could give back the primal LP solution.</p>
 
-			<p><b>Some foreword:</b> you might notice that in my project description there is a lot of mathematical analysis. This is something that perhaps holds true for this class of algorithms and scientific computing in general. Most of the work is done in formulation. To represent a problem in some standard form where we know could be solved 'efficiently'. And that is the purpose of my project, to formulate the network interdiction problem in a standard form that could be solved 'efficiently'.
+			<p><b>Some foreword:</b> you might notice that in my project there is a lot of mathematical analysis. This is something that perhaps holds true for this class of algorithms and scientific computing in general. Most of the work is done in formulation. To represent a problem in some standard form where we know could be solved 'efficiently'. And that is the purpose of my project, to formulate the network interdiction problem in a standard form that could be solved 'efficiently'.
 			</p>
 
 			<h2>4. Formulation</h2>
-			<p>Below is the formulation of the follower's problem. </p>
+			<p>Recall that in the network interdiction problem, we play the role of the interdictor- someone who tries to decrease the capacities of the edges to minimize the maximal flow. However, to arrive at a concrete objective for the interdictor, we need to start with the objective of the follower. Hence below is the formulation of the follower's problem. </p>
 			<img src="follower.png" id="follower_problem">
+			<p>Note that:</p>
 			<ul>
-				<li>X(i,j) is the flow of the commodity through edge i-j. Here, we want to maximize the outflow from the <b>source</b></li>
+				<li>X(i,j) is the flow of the commodity through edge i-j. Here, we want to maximize the outflow from the <b>source</b> node.</li>
 				<li>The first constraint simply means total flow into a node i must equal total outflow from the same node for every node (except for the source and target of course)</li>
 				<li>C is the matrix that denotes the capacity of the edges in the graph. The inequality symbol here means element wise inequality.</li>
 			</ul>
-			<p>I hope you're not alarmed by the abundance of mathematical symbols and mumbo jumbos. In the end, the matrices/vectors are just there to represent the data, the constraints, the variables in a more compact form. For example, the last inequality can be 'translated' into plain computer-science explanation as for each edge (i,j) in the graph, the flow is upperbounded by some capacity C(i,j).</p>
+			<p>I hope you're not bored by the abundance of mathematical symbols and mumbo jumbos. In the end, the matrices/vectors are to represent the data, the constraints, the variables in a more compact form. For example, the inequality above can be 'translated' as 'for each edge (i,j) in the graph, the flow is upperbounded by some capacity C(i,j)'.</p>
 
-		 	<p>However, notice that the objective function is basically a sum (some scalar). Hence, we could effectively denote the sum as some variable to make the problem look neater. In particular,</p>
+		 	<p>Furthermore, notice that the objective function is basically a sum (some scalar). Hence, we could effectively change the sum into some variable to make the problem look neater. In particular,</p>
 			<img src="modified_follower.png" id="modified_follower">
 
-<!-- 			<h2>5. Results</h2>
-			<h2>6. References</h2> -->
+			<p>Now we have the objective of the follower, let's get back to the formulation of the interdictor's objective function. It is to minimize the maximal flow - or to minimize the maximal value of the follower's objective function.However, this will be a min max problem. Which is not solvable directly using linear programming principles. Fortunately, we still have another trick- duality.</p>
+			<p>Recall that the dual of a maximization problem is a minimization problem. Hence, if we find the dual of the maximal flow problem, we will get a minimization problem. Unlike the min max problem, we can solve a min min problem using LP. Also, recall that LP problems have zero duality gap. So the minimum value of the dual problem is also the maximum value of the original (primal) flow problem. Great!</p>
+
+			<p>Without going too detailed into the math behind duality. The dual of the follower's problem is as follows:</p>
+			<img src="dual_1.png" id="dual1">
+			<p>Recall that a dual function has a different set a parameters from the primal problem. In fact, you probably realize that the only familiar variable here is C from the primal problem. Also recall that in forming the dual problem, we 'incorporate' the constraints into the objective function by introducing new variables and then get rid of the old variables. Hence, the new variables that we see here are introduced to 'incorporate' the constraints into the objective function. In particular,</p>
+
+			<img src="variables.png" id="variables">
+
+			<p>Although this looks nothing like English, this problem could be translated into "Finding the minimum cut on a weighted graph"!?!? C is the capacity of the edges. During optimization, it has been shown that the value of the alphas go down to either 0 or 1. Hence, at optimal, theta(i,j) is also 0 or 1, <b>just like choosing if an edge is included in the cut</b>. And we know that the maximum flow is equivalent to the minimum cut problem!</p>
+
+			<p>Now we have transformed the original min-max problem into a nicer min-min problem. The next step is to introduce the objective of the interdictor. We can decrease the capacity of the edges in the graph. However, reduction of edge capacities is costly although the cost is linearly proportional to the reduction. And we only have a limited budget. We can introduce a new variable Y and with it a new constraint. The interdictor problem is as follows:</p>
+
+			<img src="dual_2.png" id="dual_2">
+			<p>
+			This is very close to what we need. The problem is that the objective function at the moment contains two variables Y and Theta. Hence, to make it linear, we use a trick formally called 'epigraph form'. The idea is that we 'combine' the two variables into a new variable. However, the new variable should be an upper bound on the expression involving the original variables. We then try to minimize this upper bound. In particular, we define:
+			</p>
+			<img src="dual_3.png" id="dual_3">
+
+			<p>Now we finally have a solvable LP problem that addresses the network interdiction problem!</p>
+
+			<h1>References</h1>
+
+			<p>[1] <a href="http://rutcor.rutgers.edu/pub/rrr/reports2012/04_2012.pdf">Network interdiction- problems, models and unexplored directions</a></p>
+			<p>[2] <a href="http://onlinelibrary.wiley.com/doi/10.1002/net.10039/full">Shortest path network interdiction</a></p>
 
 		</div>
 		<div class="col-md-2"></div>

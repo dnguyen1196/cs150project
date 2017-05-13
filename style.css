@@ -2,10 +2,35 @@ body{
 	font-family:"Lucida Console";
 }
 
+#LP{
+	width: 20%;
+	align:center;
+}
 #follower_problem{
 	width: 75%;
+	float: center;
 }
 
 #modified_follower{
+	width: 65%;
+}
+
+#dual1{
+	width: 65%;
+}
+
+#duality{
+	width: 65%;
+}
+
+#variables{
+	width: 45%;
+}
+
+#dual_2{
+	width: 65%;
+}
+
+#dual_3{
 	width: 65%;
 }
